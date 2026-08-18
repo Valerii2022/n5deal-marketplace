@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -13,8 +15,23 @@ export default function Home() {
         </h1>
 
         <p className="mb-8 max-w-2xl text-xl text-slate-600 dark:text-slate-300">
-          AI-Powered Digital Asset Marketplace
+          Premium M&A Marketplace for Businesses and Investment Opportunities
         </p>
+
+        <div className="mb-12 flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/marketplace"
+            className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Browse Marketplace
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:bg-slate-800 dark:text-white dark:border-slate-700"
+          >
+            Sign In
+          </Link>
+        </div>
 
         <div className="mb-12 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm dark:bg-slate-800">
@@ -33,12 +50,12 @@ export default function Home() {
 
         <div className="rounded-2xl bg-white p-8 shadow-xl dark:bg-slate-800">
           <h2 className="mb-4 text-2xl font-semibold text-slate-900 dark:text-white">
-            Technical Assignment Prototype
+            M&A Marketplace Platform
           </h2>
           <p className="text-slate-600 dark:text-slate-300">
-            This is a foundational architecture setup for the N5Deal Marketplace platform.
+            Connect buyers and sellers of businesses, real estate, equity stakes, and investment opportunities.
             <br />
-            The application will support buyers, sellers, and managers with AI-powered features.
+            Secure messaging, professional listings, and streamlined acquisition process.
           </p>
         </div>
 
