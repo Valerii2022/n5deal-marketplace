@@ -10,6 +10,7 @@
     "db:seed": "tsx src/scripts/seed.ts"
   },
   "dependencies": {
+    "jose": "^6.2.9",
     "mongoose": "^9.9.3",
     "next": "16.3.1",
     "react": "19.2.8",

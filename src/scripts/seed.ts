@@ -2,6 +2,7 @@ import { loadEnvConfig } from "@next/env";
 import connectDB from "@/lib/db";
 import { User, Asset, Message } from "@/models";
 import { UserRole, UserStatus, AssetType, AssetStatus } from "@/types";
+import { hashPassword } from "@/lib/password";
 import mongoose from "mongoose";
 
 // Load Next.js environment variables
@@ -9,7 +10,8 @@ const projectDir = process.cwd();
 loadEnvConfig(projectDir);
 
 // DEMO ONLY - DO NOT USE IN PRODUCTION
-const DEMO_PASSWORD_HASH = "DEMO_HASH_REPLACE_WITH_REAL_BCRYPT_IN_PRODUCTION";
+// All demo users will use this password: Demo123!
+const DEMO_PASSWORD = "Demo123!";
 
 async function seed() {
   try {
@@ -31,12 +33,17 @@ async function seed() {
     await Message.deleteMany({});
     console.log("✓ Cleared all collections\n");
 
+    // Hash the demo password
+    console.log("🔐 Hashing demo password...");
+    const passwordHash = await hashPassword(DEMO_PASSWORD);
+    console.log("✓ Password hashed\n");
+
     // Create Manager
     console.log("👤 Creating users...");
     const manager = await User.create({
       name: "Sarah Mitchell",
       email: "sarah.mitchell@n5deal.com",
-      passwordHash: DEMO_PASSWORD_HASH,
+      passwordHash,
       role: UserRole.MANAGER,
       status: UserStatus.ACTIVE,
       company: "N5Deal Platform",
@@ -49,7 +56,7 @@ async function seed() {
       {
         name: "Michael Chen",
         email: "michael.chen@techventures.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.BUYER,
         status: UserStatus.ACTIVE,
         company: "Tech Ventures Capital",
@@ -62,7 +69,7 @@ async function seed() {
       {
         name: "Jennifer Rodriguez",
         email: "j.rodriguez@horizonequity.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.BUYER,
         status: UserStatus.ACTIVE,
         company: "Horizon Equity Partners",
@@ -75,7 +82,7 @@ async function seed() {
       {
         name: "David Thompson",
         email: "david.t@realestatecapital.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.BUYER,
         status: UserStatus.ACTIVE,
         company: "Real Estate Capital Group",
@@ -88,7 +95,7 @@ async function seed() {
       {
         name: "Amanda Foster",
         email: "amanda.foster@growthpartners.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.BUYER,
         status: UserStatus.ACTIVE,
         company: "Growth Partners LLC",
@@ -101,7 +108,7 @@ async function seed() {
       {
         name: "Robert Kim",
         email: "robert.kim@familyoffice.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.BUYER,
         status: UserStatus.ACTIVE,
         company: "Kim Family Office",
@@ -118,7 +125,7 @@ async function seed() {
       {
         name: "James Patterson",
         email: "james.patterson@cloudtech.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.SELLER,
         status: UserStatus.ACTIVE,
         company: "CloudTech Solutions",
@@ -129,7 +136,7 @@ async function seed() {
       {
         name: "Maria Gonzalez",
         email: "maria.gonzalez@precisionmfg.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.SELLER,
         status: UserStatus.ACTIVE,
         company: "Precision Manufacturing Inc",
@@ -140,7 +147,7 @@ async function seed() {
       {
         name: "Thomas Wright",
         email: "thomas.wright@commercialproperties.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.SELLER,
         status: UserStatus.ACTIVE,
         company: "Wright Commercial Properties",
@@ -151,7 +158,7 @@ async function seed() {
       {
         name: "Lisa Anderson",
         email: "lisa.anderson@wellnessclinics.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.SELLER,
         status: UserStatus.ACTIVE,
         company: "Anderson Wellness Clinics",
@@ -162,7 +169,7 @@ async function seed() {
       {
         name: "Kevin O'Brien",
         email: "kevin.obrien@retailventures.com",
-        passwordHash: DEMO_PASSWORD_HASH,
+        passwordHash: passwordHash,
         role: UserRole.SELLER,
         status: UserStatus.ACTIVE,
         company: "O'Brien Retail Ventures",
