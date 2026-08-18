@@ -66,15 +66,15 @@ export default function AssetDetailsPage() {
       });
 
       if (response.ok) {
-        alert("Message sent successfully!");
         setShowContactModal(false);
         setMessageBody("");
+        alert("Message sent successfully!");
       } else {
         const error = await response.json();
-        alert(error.error || "Failed to send message");
+        alert(error.error || "Failed to send message. Please try again.");
       }
     } catch (error) {
-      alert("Failed to send message");
+      alert("Unable to send message. Please check your connection and try again.");
     } finally {
       setSending(false);
     }
@@ -296,8 +296,8 @@ export default function AssetDetailsPage() {
       {/* Contact Modal */}
       {showContactModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
-            <h2 className="mb-4 text-xl font-semibold text-slate-900">
+          <div className="w-full max-w-lg rounded-lg bg-white p-4 sm:p-6 shadow-xl max-h-[90vh] overflow-y-auto">
+            <h2 className="mb-4 text-lg sm:text-xl font-semibold text-slate-900">
               Contact Seller
             </h2>
 
@@ -329,14 +329,15 @@ export default function AssetDetailsPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowContactModal(false)}
-                className="flex-1 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                disabled={sending}
+                className="flex-1 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleContactSeller}
                 disabled={sending}
-                className="flex-1 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
               >
                 {sending ? "Sending..." : "Send Message"}
               </button>

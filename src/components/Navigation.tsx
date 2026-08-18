@@ -10,9 +10,14 @@ export default function Navigation() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    fetch("/api/auth/me")
+  const checkAuth = () => {
+    setLoading(true);
+    fetch("/api/auth/me", {
+      credentials: 'same-origin',
+      cache: 'no-store'
+    })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         setUser(data || null);
@@ -22,11 +27,25 @@ export default function Navigation() {
         setUser(null);
         setLoading(false);
       });
+  };
+
+  // Check auth on mount only
+  useEffect(() => {
+    checkAuth();
   }, []);
+
+  // Re-check auth when pathname changes, but with a small delay to ensure cookie is available
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      checkAuth();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
+    setMobileMenuOpen(false);
     router.push("/");
     router.refresh();
   };
@@ -36,17 +55,17 @@ export default function Navigation() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-purple-600">
               <span className="text-xl font-bold text-white">N5</span>
             </div>
-            <span className="text-xl font-semibold text-slate-900">
+            <span className="hidden sm:inline text-xl font-semibold text-slate-900">
               N5Deal
             </span>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="flex items-center gap-6">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
             <Link
               href="/marketplace"
               className={`text-sm font-medium transition-colors ${
@@ -127,7 +146,7 @@ export default function Navigation() {
                 ) : (
                   <Link
                     href="/login"
-                    className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                    className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
                   >
                     Login
                   </Link>
@@ -135,7 +154,120 @@ export default function Navigation() {
               </>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-2">
+            {!loading && !user && (
+              <Link
+                href="/login"
+                className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white"
+              >
+                Login
+              </Link>
+            )}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="rounded-lg p-2 text-slate-600 hover:bg-slate-100"
+            >
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-slate-200 py-4">
+            <div className="flex flex-col space-y-3">
+              <Link
+                href="/marketplace"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-sm font-medium px-2 py-1 ${
+                  pathname?.startsWith("/marketplace")
+                    ? "text-blue-600"
+                    : "text-slate-600"
+                }`}
+              >
+                Marketplace
+              </Link>
+
+              {!loading && user && (
+                <>
+                  <Link
+                    href="/messages"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm font-medium px-2 py-1 ${
+                      pathname === "/messages"
+                        ? "text-blue-600"
+                        : "text-slate-600"
+                    }`}
+                  >
+                    Messages
+                  </Link>
+
+                  {user.role === "BUYER" && (
+                    <Link
+                      href="/buyer/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-sm font-medium px-2 py-1 ${
+                        pathname?.startsWith("/buyer")
+                          ? "text-blue-600"
+                          : "text-slate-600"
+                      }`}
+                    >
+                      Dashboard
+                    </Link>
+                  )}
+
+                  {user.role === "SELLER" && (
+                    <Link
+                      href="/seller/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-sm font-medium px-2 py-1 ${
+                        pathname?.startsWith("/seller")
+                          ? "text-blue-600"
+                          : "text-slate-600"
+                      }`}
+                    >
+                      Dashboard
+                    </Link>
+                  )}
+
+                  {user.role === "MANAGER" && (
+                    <Link
+                      href="/manager/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-sm font-medium px-2 py-1 ${
+                        pathname?.startsWith("/manager")
+                          ? "text-blue-600"
+                          : "text-slate-600"
+                      }`}
+                    >
+                      Manager
+                    </Link>
+                  )}
+
+                  <div className="border-t border-slate-200 pt-3 mt-2">
+                    <div className="text-sm text-slate-600 px-2 mb-2">
+                      {user.name}
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left rounded-lg bg-slate-100 px-2 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
