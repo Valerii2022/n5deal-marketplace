@@ -7,18 +7,18 @@ import Navigation from "@/components/Navigation";
 import BuyerSidebar from "@/components/buyer/BuyerSidebar";
 
 interface Message {
-  _id: string;
-  senderId: {
-    _id: string;
+  id: string;
+  sender: {
+    id: string;
     name: string;
     company?: string;
   };
-  recipientId: {
-    _id: string;
+  recipient: {
+    id: string;
     name: string;
   };
-  assetId?: {
-    _id: string;
+  asset?: {
+    id: string;
     title: string;
   };
   subject: string;
@@ -119,14 +119,14 @@ export default function BuyerMessagesPage() {
               {messages && messages.data.length > 0 ? (
                 <div className="space-y-2">
                   {messages.data.map((message) => {
-                    const senderName = message.senderId?.name || "Unknown";
-                    const senderCompany = message.senderId?.company;
-                    const assetTitle = message.assetId?.title;
+                    const senderName = message.sender?.name || "Unknown";
+                    const senderCompany = message.sender?.company;
+                    const assetTitle = message.asset?.title;
 
                     return (
                       <Link
-                        key={message._id}
-                        href={`/buyer/messages/${message._id}`}
+                        key={message.id}
+                        href={`/buyer/messages/${message.id}`}
                         className="block rounded-lg border border-slate-200 p-4 transition-colors hover:bg-slate-50"
                       >
                         <div className="flex items-start justify-between gap-4">
