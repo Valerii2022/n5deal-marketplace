@@ -7,20 +7,20 @@ import Navigation from "@/components/Navigation";
 import BuyerSidebar from "@/components/buyer/BuyerSidebar";
 
 interface Message {
-  _id: string;
-  senderId: {
-    _id: string;
+  id: string;
+  sender: {
+    id: string;
     name: string;
     email: string;
     company?: string;
     location?: string;
   };
-  recipientId: {
-    _id: string;
+  recipient: {
+    id: string;
     name: string;
   };
-  assetId?: {
-    _id: string;
+  asset?: {
+    id: string;
     title: string;
     assetType: string;
     industry: string;
@@ -69,13 +69,14 @@ export default function MessageDetailPage() {
       }
 
       const messageRes = await fetch(`/api/messages/${params.id}`);
+      console.log({messageRes})
       if (messageRes.ok) {
         const messageData = await messageRes.json();
         setMessage(messageData.data);
 
         // Mark as read if current user is recipient and message is unread
         if (
-          messageData.data.recipientId._id === authData.id &&
+          messageData.data.recipient.id === authData.id &&
           !messageData.data.read
         ) {
           await fetch(`/api/messages/${params.id}/read`, {
@@ -126,11 +127,11 @@ export default function MessageDetailPage() {
     );
   }
 
-  const isRecipient = message.recipientId?._id === currentUserId;
-  const senderName = message.senderId?.name || "Unknown";
-  const recipientName = message.recipientId?.name || "Unknown";
-  const senderCompany = message.senderId?.company;
-  const senderLocation = message.senderId?.location;
+  const isRecipient = message.recipient?.id === currentUserId;
+  const senderName = message.sender?.name || "Unknown";
+  const recipientName = message.recipient?.name || "Unknown";
+  const senderCompany = message.sender?.company;
+  const senderLocation = message.sender?.location;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -208,29 +209,29 @@ export default function MessageDetailPage() {
               </div>
 
               {/* Asset Reference */}
-              {message.assetId && (
+              {message.asset && (
                 <div className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
                   <div className="mb-2 text-sm font-medium text-slate-500">
                     Regarding Asset
                   </div>
                   <Link
-                    href={`/marketplace/${message.assetId._id}`}
+                    href={`/marketplace/${message.asset.id}`}
                     className="block hover:bg-white rounded-lg p-3 transition-colors"
                   >
                     <div className="font-medium text-slate-900">
-                      {message.assetId.title}
+                      {message.asset.title}
                     </div>
                     <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-500">
                       <span className="rounded bg-slate-100 px-2 py-0.5">
-                        {message.assetId.assetType}
+                        {message.asset.assetType}
                       </span>
                       <span>•</span>
-                      <span>{message.assetId.industry}</span>
+                      <span>{message.asset.industry}</span>
                       <span>•</span>
-                      <span>{message.assetId.location}</span>
+                      <span>{message.asset.location}</span>
                     </div>
                     <div className="mt-2 text-sm font-semibold text-slate-900">
-                      ${message.assetId.askingPrice.toLocaleString()}
+                      ${message.asset.askingPrice.toLocaleString()}
                     </div>
                   </Link>
                 </div>
@@ -247,10 +248,10 @@ export default function MessageDetailPage() {
               </div>
 
               {/* Actions */}
-              {isRecipient && message.assetId && (
+              {isRecipient && message.asset && (
                 <div className="border-t border-slate-200 pt-6">
                   <Link
-                    href={`/marketplace/${message.assetId._id}`}
+                    href={`/marketplace/${message.asset.id}`}
                     className="inline-block rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
                   >
                     View Asset Details
