@@ -232,7 +232,7 @@ export default function BuyerProfilePage() {
                       setFormData({ ...formData, name: e.target.value })
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -263,7 +263,7 @@ export default function BuyerProfilePage() {
                     onChange={(e) =>
                       setFormData({ ...formData, company: e.target.value })
                     }
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -279,7 +279,7 @@ export default function BuyerProfilePage() {
                       setFormData({ ...formData, location: e.target.value })
                     }
                     placeholder="e.g., San Francisco, CA"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -295,7 +295,7 @@ export default function BuyerProfilePage() {
                     }
                     rows={4}
                     placeholder="Tell sellers about your acquisition interests..."
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -316,7 +316,7 @@ export default function BuyerProfilePage() {
                         }
                       }}
                       placeholder="e.g., Technology"
-                      className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     <button
                       type="button"
@@ -362,7 +362,7 @@ export default function BuyerProfilePage() {
                         setFormData({ ...formData, investmentMin: e.target.value })
                       }
                       placeholder="Min"
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     <input
                       type="number"
@@ -371,7 +371,7 @@ export default function BuyerProfilePage() {
                         setFormData({ ...formData, investmentMax: e.target.value })
                       }
                       placeholder="Max"
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -393,7 +393,7 @@ export default function BuyerProfilePage() {
                         }
                       }}
                       placeholder="e.g., Strategic Acquisition"
-                      className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     <button
                       type="button"

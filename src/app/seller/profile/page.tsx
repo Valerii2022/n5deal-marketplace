@@ -187,7 +187,7 @@ export default function SellerProfilePage() {
                       setFormData({ ...formData, name: e.target.value })
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -218,7 +218,7 @@ export default function SellerProfilePage() {
                     onChange={(e) =>
                       setFormData({ ...formData, company: e.target.value })
                     }
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -234,7 +234,7 @@ export default function SellerProfilePage() {
                       setFormData({ ...formData, location: e.target.value })
                     }
                     placeholder="e.g., San Francisco, CA"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
@@ -250,7 +250,7 @@ export default function SellerProfilePage() {
                     }
                     rows={4}
                     placeholder="Tell buyers about your business and assets..."
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 

@@ -269,7 +269,7 @@ export default function ManagerUserDetailPage() {
                 </div>
               )}
 
-              {user.investmentRange && (
+              {user.investmentRange && user.investmentRange.min != null && user.investmentRange.max != null && (
                 <div className="mt-4">
                   <div className="text-sm font-medium text-slate-500">
                     Investment Range

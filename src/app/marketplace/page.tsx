@@ -215,7 +215,7 @@ function MarketplaceContent() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Find the perfect asset..."
-                  className="w-full rounded-lg border border-slate-300 py-2 pl-10 pr-10 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-slate-300 py-2 pl-10 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
                 <svg
                   className="absolute left-3 top-2.5 h-5 w-5 text-slate-400"
@@ -248,7 +248,7 @@ function MarketplaceContent() {
               <select
                 value={sort}
                 onChange={(e) => handleSort(e.target.value)}
-                className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
               >
                 <option value="newest">Newest</option>
                 <option value="price_asc">Price: Low to High</option>

@@ -27,7 +27,7 @@ export default function Home() {
           </Link>
           <Link
             href="/login"
-            className="rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:bg-slate-800 dark:text-white dark:border-slate-700"
+            className="rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-900 transition-colors hover:bg-slate-100 hover:border-slate-400 hover:text-slate-950 dark:bg-slate-800 dark:text-white dark:border-slate-700"
           >
             Sign In
           </Link>

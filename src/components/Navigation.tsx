@@ -55,7 +55,18 @@ export default function Navigation() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+          <Link 
+            href={
+              user?.role === "BUYER"
+                ? "/buyer/dashboard"
+                : user?.role === "SELLER"
+                ? "/seller/dashboard"
+                : user?.role === "MANAGER"
+                ? "/manager/dashboard"
+                : "/"
+            }
+            className="flex items-center gap-2 flex-shrink-0"
+          >
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-purple-600">
               <span className="text-xl font-bold text-white">N5</span>
             </div>
@@ -81,22 +92,28 @@ export default function Navigation() {
               <>
                 {user ? (
                   <>
-                    <Link
-                      href="/messages"
-                      className={`text-sm font-medium transition-colors ${
-                        pathname === "/messages"
-                          ? "text-blue-600"
-                          : "text-slate-600 hover:text-slate-900"
-                      }`}
-                    >
-                      Messages
-                    </Link>
+                    {(user.role === "BUYER" || user.role === "SELLER") && (
+                      <Link
+                        href={
+                          user.role === "BUYER"
+                            ? "/buyer/messages"
+                            : "/seller/messages"
+                        }
+                        className={`text-sm font-medium transition-colors ${
+                          pathname?.includes("/messages")
+                            ? "text-blue-600"
+                            : "text-slate-600 hover:text-slate-900"
+                        }`}
+                      >
+                        Messages
+                      </Link>
+                    )}
 
                     {user.role === "BUYER" && (
                       <Link
                         href="/buyer/dashboard"
                         className={`text-sm font-medium transition-colors ${
-                          pathname?.startsWith("/buyer")
+                          pathname === "/buyer/dashboard" || pathname === "/buyer/profile"
                             ? "text-blue-600"
                             : "text-slate-600 hover:text-slate-900"
                         }`}
@@ -109,7 +126,7 @@ export default function Navigation() {
                       <Link
                         href="/seller/dashboard"
                         className={`text-sm font-medium transition-colors ${
-                          pathname?.startsWith("/seller")
+                          pathname === "/seller/dashboard" || pathname === "/seller/profile" || pathname === "/seller/listings" || pathname === "/seller/listings/new" || pathname === "/seller/buyers"
                             ? "text-blue-600"
                             : "text-slate-600 hover:text-slate-900"
                         }`}
@@ -132,7 +149,7 @@ export default function Navigation() {
                     )}
 
                     <div className="flex items-center gap-3">
-                      <span className="text-sm text-slate-600">
+                      <span className="text-sm font-bold text-slate-950 border-l border-slate-300 pl-4">
                         {user.name}
                       </span>
                       <button
@@ -198,24 +215,30 @@ export default function Navigation() {
 
               {!loading && user && (
                 <>
-                  <Link
-                    href="/messages"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm font-medium px-2 py-1 ${
-                      pathname === "/messages"
-                        ? "text-blue-600"
-                        : "text-slate-600"
-                    }`}
-                  >
-                    Messages
-                  </Link>
+                  {(user.role === "BUYER" || user.role === "SELLER") && (
+                    <Link
+                      href={
+                        user.role === "BUYER"
+                          ? "/buyer/messages"
+                          : "/seller/messages"
+                      }
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-sm font-medium px-2 py-1 ${
+                        pathname?.includes("/messages")
+                          ? "text-blue-600"
+                          : "text-slate-600"
+                      }`}
+                    >
+                      Messages
+                    </Link>
+                  )}
 
                   {user.role === "BUYER" && (
                     <Link
                       href="/buyer/dashboard"
                       onClick={() => setMobileMenuOpen(false)}
                       className={`text-sm font-medium px-2 py-1 ${
-                        pathname?.startsWith("/buyer")
+                        pathname === "/buyer/dashboard" || pathname === "/buyer/profile"
                           ? "text-blue-600"
                           : "text-slate-600"
                       }`}
@@ -229,7 +252,7 @@ export default function Navigation() {
                       href="/seller/dashboard"
                       onClick={() => setMobileMenuOpen(false)}
                       className={`text-sm font-medium px-2 py-1 ${
-                        pathname?.startsWith("/seller")
+                        pathname === "/seller/dashboard" || pathname === "/seller/profile" || pathname === "/seller/listings" || pathname === "/seller/listings/new" || pathname === "/seller/buyers"
                           ? "text-blue-600"
                           : "text-slate-600"
                       }`}
@@ -253,7 +276,7 @@ export default function Navigation() {
                   )}
 
                   <div className="border-t border-slate-200 pt-3 mt-2">
-                    <div className="text-sm text-slate-600 px-2 mb-2">
+                    <div className="text-sm font-bold text-slate-950 px-2 mb-2">
                       {user.name}
                     </div>
                     <button

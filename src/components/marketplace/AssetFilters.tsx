@@ -83,7 +83,7 @@ export default function AssetFilters({ filters: initialFilters, activeCount, onA
           onChange={(e) =>
             setFilters({ ...filters, assetType: e.target.value })
           }
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
           <option value="">All Types</option>
           <option value={AssetType.BUSINESS}>Business</option>
@@ -105,7 +105,7 @@ export default function AssetFilters({ filters: initialFilters, activeCount, onA
             setFilters({ ...filters, industry: e.target.value })
           }
           placeholder="e.g., Technology"
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
 
@@ -121,7 +121,7 @@ export default function AssetFilters({ filters: initialFilters, activeCount, onA
             setFilters({ ...filters, location: e.target.value })
           }
           placeholder="e.g., Boston"
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
 
@@ -135,7 +135,7 @@ export default function AssetFilters({ filters: initialFilters, activeCount, onA
           onChange={(e) =>
             setFilters({ ...filters, status: e.target.value })
           }
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
           <option value="">All Status</option>
           <option value={AssetStatus.ACTIVE}>Active</option>
@@ -156,7 +156,7 @@ export default function AssetFilters({ filters: initialFilters, activeCount, onA
               setFilters({ ...filters, minPrice: e.target.value })
             }
             placeholder="Min"
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <input
             type="number"
@@ -165,7 +165,7 @@ export default function AssetFilters({ filters: initialFilters, activeCount, onA
               setFilters({ ...filters, maxPrice: e.target.value })
             }
             placeholder="Max"
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
         </div>
       </div>
