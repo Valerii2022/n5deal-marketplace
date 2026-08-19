@@ -63,7 +63,7 @@ export default function SellerListingsPage() {
         const assetsData = await assetsRes.json();
         // Filter to only show current seller's assets
         const sellerAssets = (assetsData.data || []).filter(
-          (asset: Asset) => asset.sellerId._id === authData.id
+          (asset: Asset) => asset.sellerId._id.toString() === authData.id
         );
         setAssets(sellerAssets);
       }

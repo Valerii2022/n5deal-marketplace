@@ -27,6 +27,7 @@ export interface SafeSellerProfile {
 export interface SafeBuyerListItem {
   id: string;
   name: string;
+  email: string;
   company?: string;
   location?: string;
   bio?: string;
@@ -195,7 +196,7 @@ export async function listBuyers(
   // Execute query with pagination
   const [buyers, total] = await Promise.all([
     User.find(query)
-      .select("-passwordHash -email -role -status -updatedAt")
+      .select("-passwordHash -role -status -updatedAt")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(pagination.limit)
@@ -207,6 +208,7 @@ export async function listBuyers(
   const safeBuyers: SafeBuyerListItem[] = buyers.map((buyer) => ({
     id: buyer._id.toString(),
     name: buyer.name,
+    email: buyer.email,
     company: buyer.company,
     location: buyer.location,
     bio: buyer.bio,

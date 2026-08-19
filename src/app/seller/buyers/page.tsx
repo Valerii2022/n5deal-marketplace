@@ -169,7 +169,7 @@ function SellerBuyersContent() {
         const assetsData = await assetsRes.json();
         // Filter to only this seller's assets
         const myAssets = assetsData.data.filter(
-          (asset: any) => asset.sellerId._id === authData.id
+          (asset: any) => asset.sellerId._id.toString() === authData.id
         );
         setSellerAssets(myAssets);
       }
