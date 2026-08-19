@@ -19,13 +19,16 @@ interface SellerProfile {
 }
 
 interface Asset {
-  id: string;
+  _id: string;
   title: string;
   assetType: string;
   industry: string;
   location: string;
   askingPrice: number;
   status: string;
+  sellerId: {
+    _id: string;
+  };
   createdAt: string;
 }
 
@@ -65,11 +68,17 @@ export default function SellerDashboard() {
       }
 
       // Load seller's assets (recent 5)
-      const assetsRes = await fetch("/api/assets?limit=5");
+      // API doesn't support sellerId filter, so fetch more and filter client-side
+      const assetsRes = await fetch("/api/assets?limit=50");
       if (assetsRes.ok) {
         const assetsData = await assetsRes.json();
-        setAssets(assetsData.data || []);
-        setTotalAssets(assetsData.pagination?.total || 0);
+        // Filter to only show current seller's assets
+        // API returns Mongoose docs with _id and sellerId fields
+        const sellerAssets = (assetsData.data || []).filter(
+          (asset: Asset) => asset.sellerId._id === authData.id
+        );
+        setAssets(sellerAssets.slice(0, 5)); // Show only 5 most recent
+        setTotalAssets(sellerAssets.length);
       }
 
       setLoading(false);
@@ -255,8 +264,8 @@ export default function SellerDashboard() {
                 <div className="space-y-3">
                   {assets.map((asset) => (
                     <Link
-                      key={asset.id}
-                      href={`/marketplace/${asset.id}`}
+                      key={asset._id}
+                      href={`/marketplace/${asset._id}`}
                       className="block rounded-lg border border-slate-200 p-4 transition-colors hover:bg-slate-50"
                     >
                       <div className="flex items-start justify-between gap-4">

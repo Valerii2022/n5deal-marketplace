@@ -8,7 +8,7 @@ import SellerSidebar from "@/components/seller/SellerSidebar";
 import { formatCurrency } from "@/lib/format";
 
 interface Asset {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   assetType: string;
@@ -18,10 +18,12 @@ interface Asset {
   revenue?: number;
   ebitda?: number;
   status: string;
-  seller: {
-    id: string;
+  sellerId: {
+    _id: string;
     name: string;
+    email: string;
     company?: string;
+    location?: string;
   };
   createdAt: string;
 }
@@ -61,7 +63,7 @@ export default function SellerListingsPage() {
         const assetsData = await assetsRes.json();
         // Filter to only show current seller's assets
         const sellerAssets = (assetsData.data || []).filter(
-          (asset: Asset) => asset.seller.id === authData.id
+          (asset: Asset) => asset.sellerId._id === authData.id
         );
         setAssets(sellerAssets);
       }
@@ -145,7 +147,7 @@ export default function SellerListingsPage() {
               <div className="space-y-4">
                 {assets.map((asset) => (
                   <div
-                    key={asset.id}
+                    key={asset._id}
                     className="rounded-lg border border-slate-200 bg-white p-6"
                   >
                     <div className="flex items-start justify-between gap-4">
@@ -212,14 +214,14 @@ export default function SellerListingsPage() {
 
                       <div className="flex flex-col gap-2">
                         <Link
-                          href={`/marketplace/${asset.id}`}
+                          href={`/marketplace/${asset._id}`}
                           className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
                         >
                           View
                         </Link>
                         {asset.status === "ACTIVE" && (
                           <button
-                            onClick={() => handleDelete(asset.id)}
+                            onClick={() => handleDelete(asset._id)}
                             className="rounded-lg border border-red-300 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
                           >
                             Suspend
