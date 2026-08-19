@@ -49,7 +49,7 @@ function ManagerAssetsContent() {
   const [currentPage, setCurrentPage] = useState(
     parseInt(searchParams.get("page") || "1", 10)
   );
-console.log({assets})
+
   useEffect(() => {
     checkAuthAndLoadAssets();
   }, [currentPage, typeFilter, statusFilter]);

@@ -40,7 +40,7 @@ export default function ManagerDashboard() {
   const [assetStats, setAssetStats] = useState({ total: 0, active: 0, suspended: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-console.log({users})
+
   useEffect(() => {
     checkAuthAndLoadData();
   }, []);

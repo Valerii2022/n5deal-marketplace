@@ -8,7 +8,7 @@ import ManagerSidebar from "@/components/manager/ManagerSidebar";
 import { formatCurrency } from "@/lib/format";
 
 interface Asset {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   assetType: string;
@@ -18,8 +18,8 @@ interface Asset {
   revenue?: number;
   ebitda?: number;
   status: string;
-  sellerId: {
-    _id: string;
+  seller: {
+    id: string;
     name: string;
     email: string;
     company?: string;
@@ -63,7 +63,7 @@ export default function ManagerAssetDetailPage() {
       const assetsRes = await fetch(`/api/manager/assets?limit=50`);
       if (assetsRes.ok) {
         const assetsData = await assetsRes.json();
-        const foundAsset = assetsData.data.find((a: Asset) => a._id === assetId);
+        const foundAsset = assetsData.data.find((a: Asset) => a.id === assetId);
         
         if (foundAsset) {
           setAsset(foundAsset);
@@ -289,31 +289,31 @@ export default function ManagerAssetDetailPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <div className="text-sm font-medium text-slate-500">Name</div>
-                  <div className="mt-1 text-slate-900">{asset.sellerId.name}</div>
+                  <div className="mt-1 text-slate-900">{asset.seller.name}</div>
                 </div>
 
                 <div>
                   <div className="text-sm font-medium text-slate-500">Email</div>
-                  <div className="mt-1 text-slate-900">{asset.sellerId.email}</div>
+                  <div className="mt-1 text-slate-900">{asset.seller.email}</div>
                 </div>
 
-                {asset.sellerId.company && (
+                {asset.seller.company && (
                   <div>
                     <div className="text-sm font-medium text-slate-500">Company</div>
-                    <div className="mt-1 text-slate-900">{asset.sellerId.company}</div>
+                    <div className="mt-1 text-slate-900">{asset.seller.company}</div>
                   </div>
                 )}
 
-                {asset.sellerId.location && (
+                {asset.seller.location && (
                   <div>
                     <div className="text-sm font-medium text-slate-500">Location</div>
-                    <div className="mt-1 text-slate-900">{asset.sellerId.location}</div>
+                    <div className="mt-1 text-slate-900">{asset.seller.location}</div>
                   </div>
                 )}
               </div>
 
               <Link
-                href={`/manager/users/${asset.sellerId._id}`}
+                href={`/manager/users/${asset.seller.id}`}
                 className="mt-4 inline-block text-sm text-blue-600 hover:text-blue-700"
               >
                 View Seller Profile →
@@ -329,7 +329,7 @@ export default function ManagerAssetDetailPage() {
               <div className="space-y-4">
                 <div className="flex gap-4">
                   <Link
-                    href={`/marketplace/${asset._id}`}
+                    href={`/marketplace/${asset.id}`}
                     className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
                   >
                     View in Marketplace

@@ -7,7 +7,7 @@ import Navigation from "@/components/Navigation";
 import ManagerSidebar from "@/components/manager/ManagerSidebar";
 
 interface User {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   role: string;
@@ -59,7 +59,7 @@ export default function ManagerUserDetailPage() {
       const usersRes = await fetch(`/api/manager/users?limit=50`);
       if (usersRes.ok) {
         const usersData = await usersRes.json();
-        const foundUser = usersData.data.find((u: User) => u._id === userId);
+        const foundUser = usersData.data.find((u: User) => u.id === userId);
         
         if (foundUser) {
           setUser(foundUser);
