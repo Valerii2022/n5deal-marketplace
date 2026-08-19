@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import BuyerSidebar from "@/components/buyer/BuyerSidebar";
+import SellerSidebar from "@/components/seller/SellerSidebar";
 
 interface Message {
   id: string;
@@ -28,7 +28,7 @@ interface Message {
   createdAt: string;
 }
 
-export default function MessageDetailPage() {
+export default function SellerMessageDetailPage() {
   const params = useParams();
   const router = useRouter();
   const [message, setMessage] = useState<Message | null>(null);
@@ -38,7 +38,7 @@ export default function MessageDetailPage() {
 
   useEffect(() => {
     loadMessage();
-  }, [params?.id]);
+  }, [params.id]);
 
   const loadMessage = async () => {
     try {
@@ -49,19 +49,13 @@ export default function MessageDetailPage() {
       }
 
       const authData = await authRes.json();
-      if (authData.role !== "BUYER") {
-        setError("Access denied. Buyer role required.");
+      if (authData.role !== "SELLER") {
+        setError("Access denied. Seller role required.");
         setLoading(false);
         return;
       }
 
       setCurrentUserId(authData.id);
-
-      if (!params?.id) {
-        setError("Message ID is required");
-        setLoading(false);
-        return;
-      }
 
       const messageRes = await fetch(`/api/messages/${params.id}`);
       if (messageRes.ok) {
@@ -106,15 +100,20 @@ export default function MessageDetailPage() {
     return (
       <div className="min-h-screen bg-slate-50">
         <Navigation />
-        <div className="flex items-center justify-center py-12">
-          <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-center">
-            <p className="text-red-600">{error || "Message not found"}</p>
-            <Link
-              href="/buyer/messages"
-              className="mt-4 inline-block text-sm text-blue-600 hover:text-blue-700"
-            >
-              Back to Messages
-            </Link>
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-6 lg:flex-row">
+            <SellerSidebar />
+            <div className="flex-1">
+              <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-center">
+                <p className="text-red-600">{error || "Message not found"}</p>
+                <Link
+                  href="/seller/messages"
+                  className="mt-4 inline-block text-sm text-blue-600 hover:text-blue-700"
+                >
+                  Back to Messages
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -132,12 +131,12 @@ export default function MessageDetailPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 lg:flex-row">
-          <BuyerSidebar />
+          <SellerSidebar />
 
           <div className="flex-1">
             <div className="mb-4">
               <Link
-                href="/buyer/messages"
+                href="/seller/messages"
                 className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
               >
                 <svg
@@ -165,19 +164,12 @@ export default function MessageDetailPage() {
                 </h1>
                 <div className="flex items-center gap-2 text-sm text-slate-500">
                   <span>
-                    {new Date(message.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {new Date(message.createdAt).toLocaleDateString()}
                   </span>
-                  {!message.read && isRecipient && (
-                    <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
-                      New
-                    </span>
-                  )}
+                  <span>•</span>
+                  <span>
+                    {new Date(message.createdAt).toLocaleTimeString()}
+                  </span>
                 </div>
               </div>
 
@@ -225,18 +217,6 @@ export default function MessageDetailPage() {
                   {message.body}
                 </div>
               </div>
-
-              {/* Actions */}
-              {isRecipient && message.asset && (
-                <div className="border-t border-slate-200 pt-6">
-                  <Link
-                    href={`/marketplace/${message.asset.id}`}
-                    className="inline-block rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
-                  >
-                    View Asset Details
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         </div>
